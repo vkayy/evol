@@ -10,25 +10,15 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum Role {
-  ADMIN
-  USER
-}
-
 model Profile {
   id String @id @db.Uuid
-  role Role @default(USER)
-  notes Note[]
+  userId String @unique
+  name String
+  imageUrl String @db.Text
+  email String @unique @db.Text
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("profile")
-}
-
-model Note {
-  id String @id @default(uuid()) @db.Uuid
-  text String
-
-  user Profile @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  userId String @db.Uuid
-
-  @@map("note")
 }

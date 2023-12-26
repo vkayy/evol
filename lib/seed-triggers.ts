@@ -4,7 +4,7 @@ import "dotenv/config"
 const dbUrl = process.env.DATABASE_URL
 
 if (!dbUrl) {
-  throw new Error("The DATABASE_URL environment variable must be set")
+  throw new Error("The DATABASE_URL environment variable must be set.")
 }
 
 const sql = postgres(dbUrl)
