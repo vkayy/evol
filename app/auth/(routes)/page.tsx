@@ -6,7 +6,7 @@ const AuthPage = async () => {
 	const { data } = await readUserSession();
 
 	if (data.session) {
-		return redirect("/hero");
+		return redirect("/dashboard");
 	}
 
 	return (
