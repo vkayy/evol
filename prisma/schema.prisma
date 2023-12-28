@@ -8,17 +8,17 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 model Profile {
   id String @id @db.Uuid
-  userId String @unique
-  name String
-  imageUrl String @db.Text
   email String @unique @db.Text
+  name String?
+  imageUrl String? @db.Text
 
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @updatedAt @default(now())
 
   @@map("profile")
 }
