@@ -48,21 +48,18 @@ export const AuthLoginForm = () => {
 		const { error } = JSON.parse(result);
 
 		if (error) {
+			if (error.message[error.message.length - 1] === ".") {
+				error.message = error.message.slice(0, -1);
+			}
 			toast({
 				variant: "destructive",
-				title: "uh oh!",
-				description: error.message,
+				title: "uh oh.",
+				description: `${error.message}!`.toLocaleLowerCase(),
 			});
 		} else {
 			toast({
-				title: "you submitted these values:",
-				description: (
-					<pre className="mt-2 rounded-md bg-stone-950 p-4">
-						<code className="text-white w-full">
-							{JSON.stringify(data, null, 2)}
-						</code>
-					</pre>
-				),
+				title: "success!",
+				description: "welcome back to evol!",
 			});
 		}
 	};

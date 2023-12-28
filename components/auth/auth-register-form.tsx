@@ -1,5 +1,6 @@
 "use client";
 
+import { prisma } from "@/lib/db";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -17,6 +18,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { AuthGoogleButton } from "./auth-google-button";
+import { userExists } from "@/lib/user-exists";
 
 const formSchema = z
 	.object({
@@ -49,25 +51,33 @@ export const AuthRegisterForm = () => {
 
 	const onSubmit = async (data: z.infer<typeof formSchema>) => {
 		const result = await signUpWithEmailAndPassword(data);
+		const exists = await userExists(data.email);
 
 		const { error } = JSON.parse(result);
 
+		let message = "";
+
 		if (error) {
+			message = error.message;
+		}
+
+		if (exists) {
+			message = "email already in use";
+		}
+
+		if (error || exists) {
+			if (message[message.length - 1] === ".") {
+				message = message.slice(0, -1);
+			}
 			toast({
 				variant: "destructive",
-				title: "uh oh!",
-				description: error.message,
+				title: "uh oh.",
+				description: `${message}!`.toLocaleLowerCase(),
 			});
 		} else {
 			toast({
-				title: "you submitted these values:",
-				description: (
-					<pre className="mt-2 rounded-md bg-stone-950 p-4">
-						<code className="text-white w-full">
-							{JSON.stringify(data, null, 2)}
-						</code>
-					</pre>
-				),
+				title: "success!",
+				description: "check your email to verify!",
 			});
 		}
 	};
