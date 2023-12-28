@@ -8,10 +8,11 @@ export const signUpWithEmailAndPassword = async (data: {
 	confirm: string;
 }) => {
 	const supabase = await createSupabaseServerClient();
-	const result = supabase.auth.signUp({
+	const result = await supabase.auth.signUp({
 		email: data.email,
 		password: data.password,
 	});
+	console.log(JSON.stringify(result));
 	return JSON.stringify(result);
 };
 

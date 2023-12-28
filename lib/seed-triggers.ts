@@ -14,8 +14,8 @@ async function main() {
     CREATE OR REPLACE FUNCTION public.handle_new_user()
     RETURNS trigger AS $$
     BEGIN
-      INSERT INTO public.profile (id)
-      VALUES (new.id);
+      INSERT INTO public.profile (id, email)
+      VALUES (new.id, new.email);
       RETURN new;
     END;
     $$ LANGUAGE plpgsql SECURITY DEFINER;

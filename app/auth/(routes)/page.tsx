@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 
 export default async function Page() {
 	const { data } = await readUserSession();
+	console.log("data attribute of readUserSession:", data);
 
 	if (data.session) {
 		console.log("redirecting to /protected");
