@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { AuthGoogleButton } from "./auth-google-button";
 
 const formSchema = z
 	.object({
@@ -51,7 +52,7 @@ export const AuthRegisterForm = () => {
 
 		const { error } = JSON.parse(result);
 
-		if (error?.message) {
+		if (error) {
 			toast({
 				variant: "destructive",
 				title: "uh oh!",

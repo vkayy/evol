@@ -5,9 +5,7 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 
 import { useToast } from "@/components/ui/use-toast";
-import {
-	signInWithEmailAndPassword,
-} from "@/app/auth/actions";
+import { signInWithEmailAndPassword } from "@/app/auth/actions";
 import {
 	Form,
 	FormControl,
@@ -19,6 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { AuthGoogleButton } from "./auth-google-button";
 
 const formSchema = z.object({
 	email: z.string().email({
@@ -44,34 +43,33 @@ export const AuthLoginForm = () => {
 	const isLoading = form.formState.isSubmitting;
 
 	const onSubmit = async (data: z.infer<typeof formSchema>) => {
-
 		const result = await signInWithEmailAndPassword(data);
 
-		// const { error } = JSON.parse(result);
+		const { error } = JSON.parse(result);
 
-		// if (error) {
-		// 	toast({
-		// 		variant: "destructive",
-		// 		title: "uh oh!",
-		// 		description: error.message,
-		// 	});
-		// } else {
-		toast({
-			title: "you submitted these values:",
-			description: (
-				<pre className="mt-2 rounded-md bg-stone-950 p-4">
-					<code className="text-white w-full">
-						{JSON.stringify(data, null, 2)}
-					</code>
-				</pre>
-			),
-		});
-		// }
+		if (error) {
+			toast({
+				variant: "destructive",
+				title: "uh oh!",
+				description: error.message,
+			});
+		} else {
+			toast({
+				title: "you submitted these values:",
+				description: (
+					<pre className="mt-2 rounded-md bg-stone-950 p-4">
+						<code className="text-white w-full">
+							{JSON.stringify(data, null, 2)}
+						</code>
+					</pre>
+				),
+			});
+		}
 	};
 
 	return (
 		<Form {...form}>
-			<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+			<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 mb-6">
 				<FormField
 					control={form.control}
 					name="email"
@@ -114,6 +112,7 @@ export const AuthLoginForm = () => {
 				>
 					sign in
 				</Button>
+				<AuthGoogleButton />
 			</form>
 		</Form>
 	);

@@ -1,3 +1,4 @@
+import { AuthLogoutButton } from "@/components/auth/auth-logout-button";
 import { readUserSession } from "@/lib/actions";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -21,6 +22,7 @@ const ProtectedPage = async () => {
 			</Link>
       <div className="h-full w-full flex flex-col justify-center items-center">
         <h2 className="text-lg p-6">you made it!</h2>
+        <AuthLogoutButton />
       </div>
     </div>
    );
