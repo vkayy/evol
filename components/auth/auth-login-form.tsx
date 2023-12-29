@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 
 import { useToast } from "@/components/ui/use-toast";
-import { signInWithEmailAndPassword } from "@/app/auth/actions";
+import { signInWithEmailAndPassword } from "@/app/(auth)/auth/actions";
 import {
 	Form,
 	FormControl,
@@ -29,7 +29,6 @@ const formSchema = z.object({
 });
 
 export const AuthLoginForm = () => {
-	const router = useRouter();
 	const { toast } = useToast();
 
 	const form = useForm<z.infer<typeof formSchema>>({
@@ -80,7 +79,7 @@ export const AuthLoginForm = () => {
 									disabled={isLoading}
 								/>
 							</FormControl>
-							<FormMessage />
+							<FormMessage className="lowercase" />
 						</FormItem>
 					)}
 				></FormField>
@@ -98,7 +97,7 @@ export const AuthLoginForm = () => {
 									disabled={isLoading}
 								/>
 							</FormControl>
-							<FormMessage />
+							<FormMessage className="lowercase" />
 						</FormItem>
 					)}
 				></FormField>

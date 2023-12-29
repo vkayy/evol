@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 
 import { useToast } from "@/components/ui/use-toast";
-import { signUpWithEmailAndPassword } from "@/app/auth/actions";
+import { signUpWithEmailAndPassword } from "@/app/(auth)/auth/actions";
 import {
 	Form,
 	FormControl,
@@ -16,7 +16,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { AuthGoogleButton } from "./auth-google-button";
 import { userExists } from "@/lib/user-exists";
 
 const formSchema = z
@@ -97,7 +96,7 @@ export const AuthRegisterForm = () => {
 									disabled={isLoading}
 								/>
 							</FormControl>
-							<FormMessage />
+							<FormMessage className="lowercase" />
 						</FormItem>
 					)}
 				></FormField>
@@ -115,7 +114,7 @@ export const AuthRegisterForm = () => {
 									disabled={isLoading}
 								/>
 							</FormControl>
-							<FormMessage />
+							<FormMessage className="lowercase" />
 						</FormItem>
 					)}
 				></FormField>
@@ -133,7 +132,7 @@ export const AuthRegisterForm = () => {
 									disabled={isLoading}
 								/>
 							</FormControl>
-							<FormMessage />
+							<FormMessage className="lowercase" />
 						</FormItem>
 					)}
 				></FormField>
