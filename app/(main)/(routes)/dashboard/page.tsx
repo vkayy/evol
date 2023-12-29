@@ -1,25 +1,14 @@
-import axios from "axios";
-
 import { AuthLogoutButton } from "@/components/auth/auth-logout-button";
-import { currentSession } from "@/lib/actions";
+import { currentProfile } from "@/lib/actions";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { db } from "@/lib/db";
 
 const ProtectedPage = async () => {
-	const { data } = await currentSession();
+	const profile = await currentProfile();
 
-	if (!data.session) {
+	if (!profile) {
 		return redirect("/auth");
 	}
-
-	const id = data.session.user.id;
-
-	const profile = await db.profile.findUnique({
-		where: {
-			id,
-		},
-	});
 
 	return (
 		<div className="flex flex-col justify-center items-center h-full">
@@ -32,7 +21,7 @@ const ProtectedPage = async () => {
 				home
 			</Link>
 			<div className="h-full w-full flex flex-col justify-center items-center">
-				<h2 className="text-lg p-6">hello, {profile?.name || "friend"}</h2>
+				<h2 className="text-lg p-6">hello, {profile?.name || "user"}</h2>
 				<AuthLogoutButton />
 			</div>
 		</div>

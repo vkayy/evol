@@ -16,7 +16,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { userExists } from "@/lib/user-exists";
+import { useModal } from "@/hooks/use-modal-store";
+import { currentProfile, userExists } from "@/lib/actions";
 
 const formSchema = z
 	.object({
@@ -34,6 +35,7 @@ const formSchema = z
 	});
 
 export const AuthRegisterForm = () => {
+	const { onOpen } = useModal();
 	const { toast } = useToast();
 
 	const form = useForm<z.infer<typeof formSchema>>({
@@ -48,8 +50,8 @@ export const AuthRegisterForm = () => {
 	const isLoading = form.formState.isSubmitting;
 
 	const onSubmit = async (data: z.infer<typeof formSchema>) => {
-		const result = await signUpWithEmailAndPassword(data);
 		const exists = await userExists(data.email);
+		const result = await signUpWithEmailAndPassword(data);
 
 		const { error } = JSON.parse(result);
 
@@ -73,10 +75,21 @@ export const AuthRegisterForm = () => {
 				description: `${message}!`.toLocaleLowerCase(),
 			});
 		} else {
-			toast({
-				title: "success!",
-				description: "check your email to verify!",
-			});
+			const profile = await currentProfile();
+
+			if (!!profile) {
+				onOpen("createProfile", { profile });
+				toast({
+					title: "success!",
+					description: "check your email to verify!",
+				});
+			} else {
+				toast({
+					variant: "destructive",
+					title: "uh oh.",
+					description: "something went wrong!".toLocaleLowerCase(),
+				});
+			}
 		}
 	};
 
@@ -137,8 +150,9 @@ export const AuthRegisterForm = () => {
 					)}
 				></FormField>
 				<Button
+					variant="primary"
 					type="submit"
-					className="w-full bg-rose-900 hover:bg-rose-900/80"
+					className="w-full"
 					disabled={isLoading}
 				>
 					sign up

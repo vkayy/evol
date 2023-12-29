@@ -15,7 +15,7 @@ export const AuthGoogleButton = () => {
     })
   }
   return (
-      <Button onClick={login} className="bg-white text-rose-900 w-96 border border-rose-900 hover:bg-rose-900/10">
+      <Button variant="border" onClick={login} className="w-96">
         sign in with google
       </Button>
   )

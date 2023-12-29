@@ -12,7 +12,7 @@ export const AuthLogoutButton = () => {
 
 	return (
 		<form action={logout} className="space-y-8">
-			<Button className="w-full bg-rose-900 hover:bg-rose-900/80">
+			<Button variant="primary" className="w-full">
 				log out
 			</Button>
 		</form>

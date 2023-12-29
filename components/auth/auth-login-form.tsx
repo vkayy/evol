@@ -102,8 +102,9 @@ export const AuthLoginForm = () => {
 					)}
 				></FormField>
 				<Button
+					variant="primary"
 					type="submit"
-					className="w-full bg-rose-900 hover:hover:bg-rose-900/80"
+					className="w-full"
 					disabled={isLoading}
 				>
 					sign in

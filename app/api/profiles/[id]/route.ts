@@ -1,12 +1,13 @@
-import { currentSession } from "@/lib/actions";
+import { currentProfile, currentSession } from "@/lib/actions";
 import { db } from "@/lib/db";
+import { redirect } from "next/navigation";
 import { NextResponse } from "next/server";
 
 export async function GET({ params }: { params: { id: string } }) {
 	try {
-		const session = await currentSession();
+		const current = await currentProfile();
 
-		if (!session) {
+		if (!current) {
 			return new NextResponse("Unauthorised", { status: 401 });
 		}
 
@@ -36,10 +37,10 @@ export async function PATCH(
 	{ params }: { params: { id: string } }
 ) {
 	try {
-		const session = await currentSession();
+		const current = await currentProfile();
 
-		if (!session) {
-			return new NextResponse("Unauthorised", { status: 401 });
+		if (!current) {
+			return redirect("/auth");
 		}
 
 		if (!params.id) {
@@ -48,22 +49,22 @@ export async function PATCH(
 
 		const { name, imageUrl } = await req.json();
 
-    if (!name) {
-      return new NextResponse("Name Missing", { status: 400 });
-    }
+		if (!name) {
+			return new NextResponse("Name Missing", { status: 400 });
+		}
 
-    if (!imageUrl) {
-      return new NextResponse("Image URL Missing", { status: 400 });
-    }
+		if (!imageUrl) {
+			return new NextResponse("Image URL Missing", { status: 400 });
+		}
 
 		const profile = await db.profile.update({
 			where: {
 				id: params.id,
 			},
 			data: {
-        name,
-        imageUrl
-      }
+				name,
+				imageUrl,
+			},
 		});
 
 		if (!profile) {
