@@ -81,7 +81,7 @@ export const CreateProfileModal = () => {
 			<DialogContent className="bg-white text-rose-900 p-0 overflow-hidden">
 				<DialogHeader className="pt-8 px-6">
 					<DialogTitle className="text-2xl text-center font-bold">
-						edit your profile
+						create your profile
 					</DialogTitle>
 					<DialogDescription className="text-center text-zinc-500">
 						feel free to use a nickname and get creative with your profile
