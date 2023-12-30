@@ -8,7 +8,6 @@ generator client {
 datasource db {
   provider = "postgresql"
   url = env("DATABASE_URL")
-  relationMode = "prisma"
 }
 
 model Profile {
@@ -17,8 +16,90 @@ model Profile {
   name String?
   imageUrl String? @db.Text
 
+  members Member[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt @default(now())
 
   @@map("profile")
+}
+
+model Evolution {
+  id String @id @db.Uuid
+  name String
+  startDate DateTime?
+  description String?
+
+  members Member[]
+  events Event[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt @default(now())
+
+  @@map("evolution")
+}
+
+model Member {
+  id String @id @db.Uuid
+
+  thoughts Thought[]
+
+  profileId String
+  profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  evolutionId String
+  evolution Evolution @relation(fields: [evolutionId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt @default(now())
+
+  @@map("member")
+}
+
+enum EventType {
+  ANNIVERSARY
+  ARGUMENT
+  BIRTHDAY
+  CHILD_BIRTH
+  DATE
+  ENGAGEMENT
+  MARRIAGE
+  MILESTONE
+  MOVING_IN
+  PARTY
+  VACATION
+}
+
+model Event {
+  id String @id @db.Uuid
+  name String
+  date DateTime
+  type EventType
+  description String?
+
+  thoughts Thought[]
+
+  evolutionId String
+  evolution Evolution @relation(fields: [evolutionId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt @default(now())
+
+  @@map("event")
+}
+
+model Thought {
+  id String @id @db.Uuid
+  message String
+
+  eventId String
+  event Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  memberId String
+  member Member @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt @default(now())
+
+  @@map("thought")
 }
