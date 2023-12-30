@@ -101,7 +101,7 @@ export const AuthRegisterForm = () => {
 					name="email"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>email</FormLabel>
+							<FormLabel className="text-rose-900">email</FormLabel>
 							<FormControl>
 								<Input
 									placeholder="enter your email"
@@ -118,7 +118,7 @@ export const AuthRegisterForm = () => {
 					name="password"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>password</FormLabel>
+							<FormLabel className="text-rose-900">password</FormLabel>
 							<FormControl>
 								<Input
 									placeholder="enter your password"
@@ -136,7 +136,7 @@ export const AuthRegisterForm = () => {
 					name="confirm"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>confirm password</FormLabel>
+							<FormLabel className="text-rose-900">confirm password</FormLabel>
 							<FormControl>
 								<Input
 									placeholder="confirm your password"

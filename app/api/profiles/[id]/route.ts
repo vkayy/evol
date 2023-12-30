@@ -40,7 +40,7 @@ export async function PATCH(
 		const current = await currentProfile();
 
 		if (!current) {
-			return redirect("/auth");
+			return new NextResponse("Unauthorised", { status: 401 });
 		}
 
 		if (!params.id) {

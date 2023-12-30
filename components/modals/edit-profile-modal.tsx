@@ -27,6 +27,7 @@ import {
 	DialogTitle,
 } from "@/components/ui/dialog";
 import { useModal } from "@/hooks/use-modal-store";
+import { useEffect } from "react";
 
 const formSchema = z.object({
 	name: z.string().min(1, {
@@ -37,13 +38,13 @@ const formSchema = z.object({
 	}),
 });
 
-export const CreateProfileModal = () => {
+export const EditProfileModal = () => {
 	const { isOpen, onClose, type, data } = useModal();
 	const router = useRouter();
 
-	const isModalOpen = isOpen && type === "createProfile";
+	const isModalOpen = isOpen && type === "editProfile";
 
-	const { profile } = data;
+  const { profile } = data
 
 	const form = useForm({
 		resolver: zodResolver(formSchema),
@@ -53,6 +54,13 @@ export const CreateProfileModal = () => {
 		},
 	});
 
+  useEffect(() => {
+    if (profile) {
+      form.setValue("name", profile.name || "")
+      form.setValue("imageUrl", profile.imageUrl || "")
+    }
+  }, [profile, form]);
+
 	const isLoading = form.formState.isSubmitting;
 
 	const onSubmit = async (values: z.infer<typeof formSchema>) => {
@@ -60,7 +68,7 @@ export const CreateProfileModal = () => {
 			await axios.patch(`/api/profiles/${profile?.id}`, values);
 
 			form.reset();
-			router.push("/");
+			router.refresh();
 			onClose();
 		} catch (error) {
 			console.log(error);
@@ -68,12 +76,8 @@ export const CreateProfileModal = () => {
 	};
 
 	const handleClose = () => {
-		try {
-			form.reset();
-			onClose();
-		} catch (error) {
-			console.log(error);
-		}
+		form.reset();
+		onClose();
 	};
 
 	return (
@@ -114,7 +118,9 @@ export const CreateProfileModal = () => {
 								name="name"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>display name</FormLabel>
+										<FormLabel>
+											display name
+										</FormLabel>
 										<FormControl>
 											<Input
 												disabled={isLoading}
@@ -140,4 +146,4 @@ export const CreateProfileModal = () => {
 	);
 };
 
-export default CreateProfileModal;
+export default EditProfileModal;

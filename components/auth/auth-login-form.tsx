@@ -71,7 +71,7 @@ export const AuthLoginForm = () => {
 					name="email"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>email</FormLabel>
+							<FormLabel className="text-rose-900">email</FormLabel>
 							<FormControl>
 								<Input
 									placeholder="enter your email"
@@ -88,7 +88,7 @@ export const AuthLoginForm = () => {
 					name="password"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>password</FormLabel>
+							<FormLabel className="text-rose-900">password</FormLabel>
 							<FormControl>
 								<Input
 									placeholder="enter your password"
