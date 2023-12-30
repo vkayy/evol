@@ -83,7 +83,7 @@ export const CreateProfileModal = () => {
 					<DialogTitle className="text-2xl text-center font-bold">
 						create your profile
 					</DialogTitle>
-					<DialogDescription className="text-center text-zinc-500">
+					<DialogDescription className="text-center text-zinc-500 pb-2">
 						feel free to use a nickname and get creative with your profile
 						picture!
 					</DialogDescription>
