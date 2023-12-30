@@ -44,10 +44,10 @@ model Member {
 
   thoughts Thought[]
 
-  profileId String
+  profileId String @db.Uuid
   profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
 
-  evolutionId String
+  evolutionId String @db.Uuid
   evolution Evolution @relation(fields: [evolutionId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
@@ -60,14 +60,17 @@ enum EventType {
   ANNIVERSARY
   ARGUMENT
   BIRTHDAY
-  CHILD_BIRTH
+  CHILDBIRTH
   DATE
   ENGAGEMENT
+  FIRST
+  HANGOUT
   MARRIAGE
   MILESTONE
   MOVING_IN
   PARTY
   VACATION
+  OTHER
 }
 
 model Event {
@@ -79,7 +82,7 @@ model Event {
 
   thoughts Thought[]
 
-  evolutionId String
+  evolutionId String @db.Uuid
   evolution Evolution @relation(fields: [evolutionId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
@@ -92,10 +95,10 @@ model Thought {
   id String @id @db.Uuid
   message String
 
-  eventId String
+  eventId String @db.Uuid
   event Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
 
-  memberId String
+  memberId String @db.Uuid
   member Member @relation(fields: [memberId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
