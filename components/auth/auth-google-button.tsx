@@ -15,7 +15,7 @@ export const AuthGoogleButton = () => {
     })
   }
   return (
-      <Button variant="border" onClick={login} className="w-96">
+      <Button variant="border" type="button" onClick={login} className="w-96">
         sign in with google
       </Button>
   )

@@ -1,11 +1,11 @@
 import AuthTabs from "@/components/auth/auth-tabs";
-import { currentSession } from "@/lib/actions";
+import { currentProfile, currentSession } from "@/lib/actions";
 import { redirect } from "next/navigation";
 
 const AuthPage = async () => {
-	const { data } = await currentSession();
+	const profile = await currentProfile();
 
-	if (data.session) {
+	if (profile) {
 		return redirect("/dashboard");
 	}
 

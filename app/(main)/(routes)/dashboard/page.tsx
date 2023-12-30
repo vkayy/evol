@@ -1,5 +1,5 @@
 import { AuthLogoutButton } from "@/components/auth/auth-logout-button";
-import { CustomiseProfileButton } from "@/components/profile/customise-profile-button";
+import { ProfileButton } from "@/components/profile/profile-button";
 import { currentProfile } from "@/lib/actions";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -30,12 +30,14 @@ const ProtectedPage = async () => {
 					welcome back{profile?.name ? `, ${profile?.name}!` : "!"} :&#41;
 				</h2>
 				{(!profile?.name || !profile?.imageUrl) && (
-					<p className="text-sm text-stone-500">p.s. don't forget to customise your profile!</p>
+					<p className="text-sm text-stone-500">
+						p.s. don't forget to customise your profile!
+					</p>
 				)}
 				<AuthLogoutButton />
 			</div>
 			<div className="absolute bottom-4 left-4">
-				<CustomiseProfileButton profile={profile} size={12} />
+				<ProfileButton profile={profile} size={12} />
 			</div>
 		</div>
 	);

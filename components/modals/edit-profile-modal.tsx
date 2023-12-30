@@ -44,7 +44,7 @@ export const EditProfileModal = () => {
 
 	const isModalOpen = isOpen && type === "editProfile";
 
-  const { profile } = data
+	const { profile } = data;
 
 	const form = useForm({
 		resolver: zodResolver(formSchema),
@@ -54,12 +54,12 @@ export const EditProfileModal = () => {
 		},
 	});
 
-  useEffect(() => {
-    if (profile) {
-      form.setValue("name", profile.name || "")
-      form.setValue("imageUrl", profile.imageUrl || "")
-    }
-  }, [profile, form]);
+	useEffect(() => {
+		if (profile) {
+			form.setValue("name", profile?.name || "");
+			form.setValue("imageUrl", profile?.imageUrl || "");
+		}
+	}, [profile, form, isOpen]);
 
 	const isLoading = form.formState.isSubmitting;
 
@@ -118,9 +118,7 @@ export const EditProfileModal = () => {
 								name="name"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>
-											display name
-										</FormLabel>
+										<FormLabel>display name</FormLabel>
 										<FormControl>
 											<Input
 												disabled={isLoading}

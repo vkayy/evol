@@ -1,6 +1,5 @@
 "use server";
 
-import { db } from "@/lib/db";
 import createSupabaseServerClient from "@/lib/supabase/server";
 
 export const signUpWithEmailAndPassword = async (data: {

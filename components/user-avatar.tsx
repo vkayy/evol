@@ -10,7 +10,6 @@ interface UserAvatarProps {
 
 export const UserAvatar = ({
   src,
-  fallback,
   className,
 }: UserAvatarProps) => {
   return (
