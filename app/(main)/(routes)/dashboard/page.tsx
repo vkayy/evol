@@ -1,13 +1,17 @@
 import { AuthLogoutButton } from "@/components/auth/auth-logout-button";
 import { ProfileButton } from "@/components/profile/profile-button";
-import { currentProfile } from "@/lib/actions";
+import { currentProfile, currentSession } from "@/lib/actions";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
 const ProtectedPage = async () => {
+	const {
+		data: { session },
+	} = await currentSession();
+
 	const profile = await currentProfile();
 
-	if (!profile) {
+	if (!session || !profile) {
 		return redirect("/auth");
 	}
 

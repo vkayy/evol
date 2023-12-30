@@ -5,9 +5,11 @@ import { NextResponse } from "next/server";
 
 export async function GET({ params }: { params: { id: string } }) {
 	try {
-		const current = await currentProfile();
+		const {
+			data: { session },
+		} = await currentSession();
 
-		if (!current) {
+		if (!session) {
 			return new NextResponse("Unauthorised", { status: 401 });
 		}
 
@@ -37,9 +39,11 @@ export async function PATCH(
 	{ params }: { params: { id: string } }
 ) {
 	try {
-		const current = await currentProfile();
+		const {
+			data: { session },
+		} = await currentSession();
 
-		if (!current) {
+		if (!session) {
 			return new NextResponse("Unauthorised", { status: 401 });
 		}
 
