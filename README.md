@@ -17,7 +17,7 @@ at the moment, only authentication has been implemented, as my weeks are quite b
 
 ## motives
 
-evol is a passion project between my partner and i, intended to enable people to store the memories made across the evolution of their relationships, whether platonic or romantic.
+evol is a passion project between my partner and i, intended to enable people to store the memories made across the evolution of relationships of any nature.
 
 ## social links
 
