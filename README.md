@@ -17,8 +17,4 @@ at the moment, only authentication has been implemented, as my weeks are quite b
 
 ## motives
 
-evol is a passion project between my partner and i, intended to enable people to store the memories made across the evolution of relationships of any nature.
-
-## social links
-
-socials are yet to be launched, but will include instagram, tiktok, discord, and patreon
+evol is a project between my girlfriend and i, intended to enable people to store the memories made across the evolution of relationships of any nature.
